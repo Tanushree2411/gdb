@@ -1,0 +1,20 @@
+#include<stdio.h>//prog for lower boundary memory violations
+#include<stdlib.h>//export RF_PROTECT_BELOW=1 in cmd line terminal
+void buggy()
+{
+int *intptr;
+int i;
+intptr=(int *)malloc(sizeof(int)*5); //int data type=4 bytes
+printf("malloc checling:addr=%08x and size=%d\n",intptr,sizeof(int)*5);
+for(i=0;i<=3;i++)
+{
+*intptr=100;
+printf("value at ptr intptr=%d\n",*(intptr));
+intptr--;
+}
+}
+int main()
+{
+buggy();
+return 0;
+}
